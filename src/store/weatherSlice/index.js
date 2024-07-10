@@ -10,22 +10,6 @@ export const fetchWeathers = createAsyncThunk(
     const weathers = await response.json();
     console.log(weathers);
 
-    await fetch("http://localhost:5000/api/weather", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: location,
-        temp_c: weathers.current.temp_c,
-        feelslike_c: weathers.current.feelslike_c,
-        wind_kph: weathers.current.wind_kph,
-        precip_mm: weathers.current.precip_mm,
-        humidity: weathers.current.humidity,
-        pressure_mb: weathers.current.pressure_mb,
-      }),
-    });
-
     return weathers;
   }
 );

@@ -224,7 +224,7 @@ export const RegistrationPage = () => {
             >
               <Link>Регистрация</Link>
             </Button>
-            <Button>
+            <Button className={Styles.back}>
               <Link to="/">Назад</Link>
             </Button>
           </div>
