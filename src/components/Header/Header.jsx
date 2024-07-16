@@ -29,10 +29,12 @@ export const Header = () => {
         ) : (
           <nav className={Styles.header_nav}>
             <Link to="/login">
-              <button className={Styles.header_button}>Вход</button>
+              <button className={Styles.header_button}>ВОЙТИ</button>
             </Link>
             <Link to="/registration">
-              <button className={Styles.header_button_link}>Регистрация</button>
+              <button className={Styles.header_button_link}>
+                Зарегистрироваться
+              </button>
             </Link>
           </nav>
         )}

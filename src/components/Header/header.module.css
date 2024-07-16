@@ -1,10 +1,7 @@
-* {
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
 .header {
   width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
   background-color: white;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -50,7 +47,7 @@
 .header_button {
   width: 75px;
   height: 40px;
-  font-size: 15px;
+  font-size: 13px;
   color: white;
   background-color: #2a7fb8;
   border: none;
@@ -63,7 +60,6 @@
 }
 
 .header_button_link {
-  width: 120px;
   height: 40px;
   font-size: 15px;
   color: #2a7fb8;
@@ -103,5 +99,9 @@
 @media (max-width: 480px) {
   .header_box {
     width: 100%;
+  }
+
+  .header_nav {
+    gap: 0px;
   }
 }

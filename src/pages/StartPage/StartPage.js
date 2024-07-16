@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fetchWeathers } from "../../store/weatherSlice";
 import { useDispatch } from "react-redux";
 import { Layout } from "../../components/Layout/Layout";
+import { Card } from "../../components/Card/Card";
 
 export const StartPage = () => {
   const [location, setLocation] = useState("");
@@ -45,7 +46,7 @@ export const StartPage = () => {
               <h1 className={Styles.content_title}>
                 Прогноз погоды для тысячи городов по всему миру
               </h1>
-              <form className={Styles.form_search_location}>
+              <form className={Styles.form_search}>
                 <input
                   className={Styles.input_search}
                   placeholder="Город"
@@ -63,27 +64,21 @@ export const StartPage = () => {
               <motion.div
                 initial={{ x: 100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1 }}
-                viewport={{ amount: 1, once: true }}
+                transition={{ duration: 0.5 }}
+                viewport={{ amount: 0.5, once: true }}
                 className={Styles.content_modal}
               >
-                <div className={Styles.content_modal_up}>
+                <div className={Styles.content_modal_top}>
                   <h1>{weather.location.name}</h1>
                 </div>
                 <div className={Styles.content_modal_bottom}>
                   <div className={Styles.content_modal_block}>
                     <p>Температура</p>
-                    <p>
-                      <br />
-                      {weather.current.temp_c} &deg;C
-                    </p>
+                    <p>{weather.current.temp_c} &deg;C</p>
                   </div>
                   <div className={Styles.content_modal_block}>
                     <p>Ощущается как</p>
-                    <p>
-                      <br />
-                      {weather.current.feelslike_c} &deg;C
-                    </p>
+                    <p>{weather.current.feelslike_c} &deg;C</p>
                   </div>
                 </div>
               </motion.div>
@@ -97,10 +92,10 @@ export const StartPage = () => {
               initial={{ x: -100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
-              viewport={{ amount: 1, once: true }}
+              viewport={{ amount: 0.2, once: true }}
             >
               Ваш источник №1 любых прогнозов погоды и обновлений. Будьте в
-              курсе любых изменений погоды с WeatherToDay.
+              курсе любых изменений погоды с WindyWay.
             </motion.h1>
             <motion.p
               className={Styles.content_second_info_text}
@@ -110,8 +105,8 @@ export const StartPage = () => {
               viewport={{ amount: 0.2, once: true }}
             >
               Избегайте погодных сюрпризов <br />
-              <br /> WeatherToDay предоставляет инструмент планирования поездок
-              с точной информацией о прогнозе погоды для оптимизации планов
+              <br /> WindyWay предоставляет инструмент планирования поездок с
+              точной информацией о прогнозе погоды для оптимизации планов
               поездок. Успешное путешествие требует тщательного планирования,
               чтобы путешественники могли насладиться веселым и безопасным
               путешествием.
@@ -126,111 +121,40 @@ export const StartPage = () => {
               авторизовавшись на нашем сайте.
             </motion.p>
           </div>
-          <div className={Styles.content_second_containers}>
+          <div className={Styles.content_second_cards}>
             <motion.div
               initial={{ x: 100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
               viewport={{ amount: 0.2, once: true }}
-              className={Styles.content_second_container}
             >
-              <div className={Styles.content_second_container_up}>
-                <h1>Лондон</h1>
-                <img className={Styles.img_icon} src={img_icon1} />
-              </div>
-              <div className={Styles.content_second_container_bottom}>
-                <div className={Styles.container_block}>
-                  <p>Температура</p>
-                  <p>
-                    <br />4 &deg;C
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Ощущается как</p>
-                  <p>
-                    <br />2 &deg;C
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Скорость ветра</p>
-                  <p>
-                    <br />9 км/ч
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Осадки</p>
-                  <p>
-                    <br />2 мм
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Влажность</p>
-                  <p>
-                    <br />
-                    82%
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Давление</p>
-                  <p>
-                    <br />
-                    1088 мб
-                  </p>
-                </div>
-              </div>
+              <Card
+                name="Лондон"
+                iconPath={img_icon1}
+                temp_c="4"
+                feelslike_c="2"
+                wind_kph="9"
+                precip_mm="2"
+                humidity="82"
+                pressure_mb="1088"
+              />
             </motion.div>
             <motion.div
               initial={{ x: 100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
-              className={Styles.content_second_container}
             >
-              <div className={Styles.content_second_container_up}>
-                <h1>Москва</h1>
-                <img className={Styles.img_icon} src={img_icon2} />
-              </div>
-              <div className={Styles.content_second_container_bottom}>
-                <div className={Styles.container_block}>
-                  <p>Температура</p>
-                  <p>
-                    <br />
-                    11 &deg;C
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Ощущается как</p>
-                  <p>
-                    <br />7 &deg;C
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Скорость ветра</p>
-                  <p>
-                    <br />3 км/ч
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Осадки</p>
-                  <p>
-                    <br />0 мм
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Влажность</p>
-                  <p>
-                    <br />
-                    66%
-                  </p>
-                </div>
-                <div className={Styles.container_block}>
-                  <p>Давление</p>
-                  <p>
-                    <br />
-                    1024 мб
-                  </p>
-                </div>
-              </div>
+              <Card
+                name="Москва"
+                iconPath={img_icon2}
+                temp_c="11"
+                feelslike_c="7"
+                wind_kph="3"
+                precip_mm="0"
+                humidity="66"
+                pressure_mb="1024"
+              />
             </motion.div>
           </div>
         </section>

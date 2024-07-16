@@ -8,7 +8,6 @@ export const fetchWeathers = createAsyncThunk(
       `http://api.weatherapi.com/v1/current.json?key=${keyWeather}&q=${location}`
     );
     const weathers = await response.json();
-    console.log(weathers);
 
     return weathers;
   }

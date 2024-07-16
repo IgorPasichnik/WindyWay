@@ -13,6 +13,7 @@ import img_show from "../../images/weatherIcons/snow_weather_icon_152001.png";
 import img_lightning from "../../images/weatherIcons/lightning_weather_icon_151999.png";
 import img_rainbow from "../../images/weatherIcons/rainbow_weather_icon_152000.png";
 import { Layout } from "../../components/Layout/Layout";
+import { Card } from "../../components/Card/Card";
 
 export const HomePage = () => {
   const [location, setLocation] = useState("");
@@ -27,7 +28,7 @@ export const HomePage = () => {
         setWeather(result.payload);
       })
       .catch((error) => {
-        console.error("Error fetching weather data:", error);
+        console.error("Ошибка:", error);
       });
   };
 
@@ -110,14 +111,14 @@ export const HomePage = () => {
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
+              viewport={{ amount: 0.2, once: true }}
               className={Styles.content_search}
             >
               <h1 className={Styles.content_title}>
                 Укажите название Вашего города
               </h1>
-              <form className={Styles.form_search_location}>
+              <form className={Styles.form_search}>
                 <input
                   className={Styles.input_search}
                   placeholder="Город"
@@ -138,57 +139,19 @@ export const HomePage = () => {
               <motion.div
                 initial={{ x: 100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1 }}
-                className={Styles.content_second_container}
+                transition={{ duration: 0.5 }}
+                viewport={{ amount: 0.5, once: true }}
               >
-                <div className={Styles.content_second_container_up}>
-                  <h1>{weather.location.name}</h1>
-                  <img className={Styles.img_icon} src={getIconPath(weather)} />
-                </div>
-                <div className={Styles.content_second_container_bottom}>
-                  <div className={Styles.container_block}>
-                    <p>Температура</p>
-                    <p>
-                      <br />
-                      {weather.current.temp_c} &deg;C
-                    </p>
-                  </div>
-                  <div className={Styles.container_block}>
-                    <p>Ощущается как</p>
-                    <p>
-                      <br />
-                      {weather.current.feelslike_c} &deg;C
-                    </p>
-                  </div>
-                  <div className={Styles.container_block}>
-                    <p>Скорость ветра</p>
-                    <p>
-                      <br />
-                      {weather.current.wind_kph} км/ч
-                    </p>
-                  </div>
-                  <div className={Styles.container_block}>
-                    <p>Осадки</p>
-                    <p>
-                      <br />
-                      {weather.current.precip_mm} мм
-                    </p>
-                  </div>
-                  <div className={Styles.container_block}>
-                    <p>Влажность</p>
-                    <p>
-                      <br />
-                      {weather.current.humidity}%
-                    </p>
-                  </div>
-                  <div className={Styles.container_block}>
-                    <p>Давление</p>
-                    <p>
-                      <br />
-                      {weather.current.pressure_mb} мб
-                    </p>
-                  </div>
-                </div>
+                <Card
+                  name={weather.location.name}
+                  iconPath={getIconPath(weather)}
+                  temp_c={weather.current.temp_c}
+                  feelslike_c={weather.current.feelslike_c}
+                  wind_kph={weather.current.wind_kph}
+                  precip_mm={weather.current.precip_mm}
+                  humidity={weather.current.humidity}
+                  pressure_mb={weather.current.pressure_mb}
+                />
               </motion.div>
             )}
           </div>
