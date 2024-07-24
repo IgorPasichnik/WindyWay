@@ -17,8 +17,10 @@ export const StartPage = () => {
 
   const handlerLocation = (e) => {
     setWeather(null);
+
     if (location) {
       e.preventDefault();
+      document.activeElement.blur();
       dispatch(fetchWeathers(location))
         .then((result) => {
           setWeather(result.payload);
@@ -37,7 +39,7 @@ export const StartPage = () => {
         <section className={Styles.content}>
           <div className={Styles.content_box}>
             <motion.div
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
@@ -62,7 +64,7 @@ export const StartPage = () => {
             </motion.div>
             {weather && (
               <motion.div
-                initial={{ x: 100, opacity: 0 }}
+                initial={{ x: 50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ amount: 0.5, once: true }}
@@ -89,7 +91,7 @@ export const StartPage = () => {
           <div className={Styles.content_second_info}>
             <motion.h1
               className={Styles.content_second_info_title}
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
@@ -99,7 +101,7 @@ export const StartPage = () => {
             </motion.h1>
             <motion.p
               className={Styles.content_second_info_text}
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
@@ -123,7 +125,7 @@ export const StartPage = () => {
           </div>
           <div className={Styles.content_second_cards}>
             <motion.div
-              initial={{ x: 100, opacity: 0 }}
+              initial={{ x: 50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
               viewport={{ amount: 0.2, once: true }}
@@ -140,7 +142,7 @@ export const StartPage = () => {
               />
             </motion.div>
             <motion.div
-              initial={{ x: 100, opacity: 0 }}
+              initial={{ x: 50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}

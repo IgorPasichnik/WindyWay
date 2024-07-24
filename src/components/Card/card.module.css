@@ -67,13 +67,14 @@
   }
 
   .card_top {
+    padding: 0 10px;
     font-size: 26px;
   }
 
   .img_icon {
     width: 150px;
     top: -50px;
-    left: 175px;
+    left: 190px;
   }
 
   .card_bottom {
