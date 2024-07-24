@@ -94,6 +94,14 @@
   .header_box {
     width: 100%;
   }
+
+  .header_img {
+    width: 40px;
+  }
+
+  .header_title {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 480px) {
