@@ -1,11 +1,9 @@
 import Styles from "./registrationPage.module.css";
-import { Button, Input, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const RegistrationPage = () => {
-  const { Title } = Typography;
   const [user, setUser] = useState("");
   const [userDirty, setUserDirty] = useState(false);
   const [isUserError, setIsUserError] = useState("Поле не может быть пустым");
@@ -144,16 +142,11 @@ export const RegistrationPage = () => {
           transition={{ duration: 0.5 }}
           className={Styles.entry_modal}
         >
-          <Typography className={Styles.reg_title}>
-            <Title level={2}>Регистрация</Title>
-          </Typography>
-          <Space direction="vertical">
-            {userDirty && isUserError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                {isUserError}
-              </div>
-            )}
-            <Input
+          <div>
+            <h1>Регистрация</h1>
+          </div>
+          <space>
+            <input
               className={`${Styles.entry_input} ${
                 isUserError && userDirty ? Styles.error : ""
               }`}
@@ -163,47 +156,23 @@ export const RegistrationPage = () => {
               onChange={(e) => userHandler(e)}
               value={user}
               onBlur={(e) => blurHandler(e)}
-            ></Input>
-            {passwordDirty && isPasswordError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                {isPasswordError}
+            />
+            {userDirty && isUserError ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isUserError}
               </div>
+            ) : (
+              <div style={{ height: "14px" }}></div>
             )}
-            <Input
-              data-testid="passwordInput"
-              className={`${Styles.entry_input} ${
-                isPasswordError && passwordDirty ? Styles.error : ""
-              }`}
-              placeholder="password"
-              name="password"
-              type="text"
-              onChange={(e) => passwordHandler(e)}
-              value={password}
-              onBlur={(e) => blurHandler(e)}
-            ></Input>
-            {passwordDirty2 && isPasswordError2 && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                {isPasswordError2}
-              </div>
-            )}
-            <Input
-              data-testid="passwordInput2"
-              className={`${Styles.entry_input} ${
-                isPasswordError2 && passwordDirty2 ? Styles.error : ""
-              }`}
-              placeholder="password"
-              name="password2"
-              type="text"
-              onChange={(e) => passwordHandler2(e)}
-              value={password2}
-              onBlur={(e) => blurHandler(e)}
-            ></Input>
-            {emailDirty && isEmailError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                {isEmailError}
-              </div>
-            )}
-            <Input
+            <input
               className={`${Styles.entry_input} ${
                 isEmailError && emailDirty ? Styles.error : ""
               }`}
@@ -213,20 +182,91 @@ export const RegistrationPage = () => {
               onChange={(e) => emailHandler(e)}
               value={email}
               onBlur={(e) => blurHandler(e)}
-            ></Input>
-          </Space>
+            />
+            {emailDirty && isEmailError ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isEmailError}
+              </div>
+            ) : (
+              <div style={{ height: "14px" }}></div>
+            )}
+            <input
+              data-testid="passwordinput"
+              className={`${Styles.entry_input} ${
+                isPasswordError && passwordDirty ? Styles.error : ""
+              }`}
+              placeholder="password"
+              name="password"
+              type="text"
+              onChange={(e) => passwordHandler(e)}
+              value={password}
+              onBlur={(e) => blurHandler(e)}
+            />
+            {passwordDirty && isPasswordError ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isPasswordError}
+              </div>
+            ) : (
+              <div style={{ height: "14px" }}></div>
+            )}
+            <input
+              data-testid="passwordinput2"
+              className={`${Styles.entry_input} ${
+                isPasswordError2 && passwordDirty2 ? Styles.error : ""
+              }`}
+              placeholder="password"
+              name="password2"
+              type="text"
+              onChange={(e) => passwordHandler2(e)}
+              value={password2}
+              onBlur={(e) => blurHandler(e)}
+            />
+            {passwordDirty2 && isPasswordError2 ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isPasswordError2}
+              </div>
+            ) : (
+              <div style={{ height: "14px" }}></div>
+            )}
+          </space>
           <div className={Styles.entry_modal_bottom}>
-            <Button
-              className={Styles.button}
-              disabled={!formValid}
-              type="primary"
-              onClick={registrationHandler}
-            >
-              <Link>Регистрация</Link>
-            </Button>
-            <Button className={Styles.back}>
-              <Link to="/">Назад</Link>
-            </Button>
+            <Link>
+              <button
+                className={Styles.button}
+                disabled={!formValid}
+                type="primary"
+                onClick={registrationHandler}
+              >
+                Регистрация
+              </button>
+            </Link>
+            <Link to="/">
+              <button className={Styles.button_back}>Назад</button>
+            </Link>
           </div>
         </motion.form>
       </AnimatePresence>

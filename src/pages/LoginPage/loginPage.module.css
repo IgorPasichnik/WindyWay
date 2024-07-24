@@ -14,63 +14,81 @@
 .entry_modal {
   width: 400px;
   height: 450px;
+  padding: 20px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.5);
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
+.entry_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .entry_input {
-  margin-bottom: 10px;
-  width: 200px;
+  width: 245px;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.entry_input:focus {
+  box-shadow: inset 0 0 1px #2a7fb8;
+  border: 1px solid #2a7fb8;
+  outline: none;
 }
 
 .entry_modal_bottom {
   width: 225px;
-  margin: 10px;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.back {
-  margin-top: 50px;
-  display: flex;
-  align-content: center;
-}
-
-.back:hover {
-  color: #5db0e7 !important;
 }
 
 .error {
   border: 1px solid red;
 }
 
-/* .button_entry {
-  background-color: #2a7fb8;
-} */
-
-/* .button_entry:not(button_entry-disabled):not(button_entry-pressed):not(
-    button_entry-loading
-  ) {
-  background-color: #d4d4d4;
-}
-
-.button_entry:not(button_entry-disabled):not(button_entry-pressed):not(
-    button_entry-loading
-  ):hover {
-  background-color: #2a7fb8 !important;
-} */
-
 .button {
+  padding: 10px 15px;
+  font-size: 13px;
+  color: white;
   background-color: #2a7fb8;
+  border: 1px solid #2a7fb8;
+  border-radius: 6px;
 }
 
 .button:hover {
-  background-color: #5db0e7 !important;
+  cursor: pointer;
+  background-color: #5db0e7;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  color: gray;
+  background-color: rgb(220, 220, 220);
+  border: 1px solid gray;
+  opacity: 0.5;
+}
+
+.button_back {
+  padding: 10px 15px;
+  font-size: 13px;
+  color: black;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 6px;
+}
+
+.button_back:hover {
+  cursor: pointer;
+  color: #2a7fb8;
+  border: 1px solid #2a7fb8;
 }

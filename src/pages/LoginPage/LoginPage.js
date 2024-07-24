@@ -1,11 +1,9 @@
 import Styles from "./loginPage.module.css";
-import { Button, Input, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const LoginPage = () => {
-  const { Title } = Typography;
   const [user, setUser] = useState("");
   const [userDirty, setUserDirty] = useState(false);
   const [isUserError, setIsUserError] = useState("Поле не может быть пустым");
@@ -88,7 +86,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className={Styles.entry}>
+    <main className={Styles.entry}>
       <AnimatePresence>
         <motion.form
           initial={{ x: 100, opacity: 0 }}
@@ -96,16 +94,11 @@ export const LoginPage = () => {
           transition={{ duration: 0.5 }}
           className={Styles.entry_modal}
         >
-          <Typography>
-            <Title level={2}>Авторизация</Title>
-          </Typography>
-          <Space direction="vertical">
-            {userDirty && isUserError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                {isUserError}
-              </div>
-            )}
-            <Input
+          <div>
+            <h1>Авторизация</h1>
+          </div>
+          <space className={Styles.entry_form}>
+            <input
               className={`${Styles.entry_input} ${
                 isUserError && userDirty ? Styles.error : ""
               }`}
@@ -116,12 +109,22 @@ export const LoginPage = () => {
               value={user}
               onBlur={(e) => blurHandler(e)}
             />
-            {passwordDirty && isPasswordError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                {isPasswordError}
+            {userDirty && isUserError ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isUserError}
               </div>
+            ) : (
+              <div style={{ height: "14px" }}></div>
             )}
-            <Input
+            <input
               className={`${Styles.entry_input} ${
                 isPasswordError && passwordDirty ? Styles.error : ""
               }`}
@@ -132,25 +135,44 @@ export const LoginPage = () => {
               value={password}
               onBlur={(e) => blurHandler(e)}
             />
-          </Space>
-          <div className={Styles.entry_modal_bottom}>
-            <Button
-              className={Styles.button}
-              disabled={!formValid}
-              type="primary"
-              onClick={loginHandler}
-            >
-              <Link>Вход</Link>
-            </Button>
-            <Button className={Styles.button} type="primary">
-              <Link to="/registration">Регистрация</Link>
-            </Button>
-          </div>
-          <Button className={Styles.back}>
-            <Link to="/">Назад</Link>
-          </Button>
+            {passwordDirty && isPasswordError ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isPasswordError}
+              </div>
+            ) : (
+              <div style={{ height: "14px" }}></div>
+            )}
+            <div className={Styles.entry_modal_bottom}>
+              <Link to="/home">
+                <button
+                  className={Styles.button}
+                  disabled={!formValid}
+                  type="primary"
+                  onClick={loginHandler}
+                >
+                  Вход
+                </button>
+              </Link>
+              <Link to="/registration">
+                <button className={Styles.button} type="primary">
+                  Регистрация
+                </button>
+              </Link>
+            </div>
+          </space>
+          <Link to="/">
+            <button className={Styles.button_back}>Назад</button>
+          </Link>
         </motion.form>
       </AnimatePresence>
-    </div>
+    </main>
   );
 };
