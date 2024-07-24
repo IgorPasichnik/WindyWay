@@ -3,9 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchWeathers = createAsyncThunk(
   "weather/fetchWeather",
   async (location) => {
-    const keyWeather = "f47c862718da4050aaf70403232812";
+    const keyWeather = process.env.REACT_APP_KEY_WEATER;
     const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=${keyWeather}&q=${location}`
+      `https://api.weatherapi.com/v1/current.json?key=${keyWeather}&q=${location}`
     );
     const weathers = await response.json();
 
