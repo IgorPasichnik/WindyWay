@@ -237,6 +237,10 @@
 }
 
 @media (max-width: 768px) {
+  .content {
+    background-attachment: local;
+  }
+
   .content_box {
     padding-top: 150px;
     height: 900px;

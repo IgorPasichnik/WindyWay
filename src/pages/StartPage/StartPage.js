@@ -5,7 +5,7 @@ import img_icon2 from "../../images/weatherIcons/sunny_weather_icon_152004.png";
 import img_search from "../../images/search.svg";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fetchWeathers } from "../../store/weatherSlice";
+import { fetchWeathers } from "../../features/weather/weatherSlice";
 import { useDispatch } from "react-redux";
 import { Layout } from "../../components/Layout/Layout";
 import { Card } from "../../components/Card/Card";

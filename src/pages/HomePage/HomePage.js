@@ -1,9 +1,9 @@
 import Styles from "./homePage.module.css";
 import img_search from "../../images/search.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fetchWeathers } from "../../store/weatherSlice";
-import { useDispatch } from "react-redux";
+import { fetchWeathers } from "../../features/weather/weatherSlice";
+import { useDispatch, useSelector } from "react-redux";
 import img_sun from "../../images/weatherIcons/sun_weather_icon_152003.png";
 import img_sunny from "../../images/weatherIcons/sunny_weather_icon_152004.png";
 import img_cloud from "../../images/weatherIcons/cloud_weather_icon_151996.png";
@@ -14,11 +14,21 @@ import img_lightning from "../../images/weatherIcons/lightning_weather_icon_1519
 import img_rainbow from "../../images/weatherIcons/rainbow_weather_icon_152000.png";
 import { Layout } from "../../components/Layout/Layout";
 import { Card } from "../../components/Card/Card";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "../../features/auth/authSlice";
 
 export const HomePage = () => {
+  const navigate = useNavigate();
+  const user = useSelector(selectUser);
   const [location, setLocation] = useState("");
   const dispatch = useDispatch();
   const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
 
   const handleLocationSubmit = (e) => {
     setWeather(null);

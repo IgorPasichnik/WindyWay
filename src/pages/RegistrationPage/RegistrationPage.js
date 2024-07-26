@@ -2,11 +2,13 @@ import Styles from "./registrationPage.module.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRegisterMutation } from "../../app/services/auth";
+import { isErrorWithMessage } from "../../utils/is-error-with-message";
 
 export const RegistrationPage = () => {
-  const [user, setUser] = useState("");
-  const [userDirty, setUserDirty] = useState(false);
-  const [isUserError, setIsUserError] = useState("Поле не может быть пустым");
+  const [name, setName] = useState("");
+  const [nameDirty, setNameDirty] = useState(false);
+  const [isNameError, setIsNameError] = useState("Поле не может быть пустым");
   const [password, setPassword] = useState("");
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(
@@ -20,27 +22,29 @@ export const RegistrationPage = () => {
   const [email, setEmail] = useState("");
   const [emailDirty, setEmailDirty] = useState(false);
   const [isEmailError, setIsEmailError] = useState("Поле не может быть пустым");
+  const [registerUser, registerUserResult] = useRegisterMutation();
+  const [isRegisterError, setIsRegisterError] = useState("");
   const [formValid, setFormValid] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isUserError || isPasswordError || isPasswordError2 || isEmailError) {
+    if (isNameError || isPasswordError || isPasswordError2 || isEmailError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [isUserError, isPasswordError, isPasswordError2, isEmailError]);
+  }, [isNameError, isPasswordError, isPasswordError2, isEmailError]);
 
-  const userHandler = (e) => {
-    setUser(e.target.value);
+  const nameHandler = (e) => {
+    setName(e.target.value);
     const re = /^\w+$/;
     if (!re.test(String(e.target.value))) {
-      setIsUserError("Некорректное имя");
+      setIsNameError("Некорректное имя");
       if (!e.target.value) {
-        setIsUserError("Поле не может быть пустым");
+        setIsNameError("Поле не может быть пустым");
       }
     } else {
-      setIsUserError("");
+      setIsNameError("");
     }
   };
 
@@ -93,8 +97,8 @@ export const RegistrationPage = () => {
 
   const blurHandler = (e) => {
     switch (e.target.name) {
-      case "user":
-        setUserDirty(true);
+      case "name":
+        setNameDirty(true);
         break;
       case "password":
         setPasswordDirty(true);
@@ -111,25 +115,22 @@ export const RegistrationPage = () => {
   const registrationHandler = async (e) => {
     e.preventDefault();
     const payload = {
-      user: user,
+      name: name,
+      email: email,
       password: password,
     };
     try {
-      const response = await fetch("http://localhost:9500/registration", {
-        credentials: "include",
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      console.log(JSON.stringify(data));
-      navigate("/location");
+      await registerUser(payload).unwrap();
+
+      navigate("/home");
     } catch (err) {
-      console.log(err);
-      alert("Такой пользователь уже существует");
+      const maybeError = isErrorWithMessage(err);
+
+      if (maybeError) {
+        setIsRegisterError(err.data.message);
+      } else {
+        setIsRegisterError("Неизвестная ошибка");
+      }
     }
   };
 
@@ -145,19 +146,19 @@ export const RegistrationPage = () => {
           <div>
             <h1>Регистрация</h1>
           </div>
-          <space>
+          <div>
             <input
               className={`${Styles.entry_input} ${
-                isUserError && userDirty ? Styles.error : ""
+                isNameError && nameDirty ? Styles.error : ""
               }`}
               placeholder="name"
-              name="user"
+              name="name"
               type="text"
-              onChange={(e) => userHandler(e)}
-              value={user}
+              onChange={(e) => nameHandler(e)}
+              value={name}
               onBlur={(e) => blurHandler(e)}
             />
-            {userDirty && isUserError ? (
+            {nameDirty && isNameError ? (
               <div
                 style={{
                   marginLeft: "4px",
@@ -167,7 +168,7 @@ export const RegistrationPage = () => {
                   letterSpacing: "-1px",
                 }}
               >
-                {isUserError}
+                {isNameError}
               </div>
             ) : (
               <div style={{ height: "14px" }}></div>
@@ -249,15 +250,27 @@ export const RegistrationPage = () => {
               >
                 {isPasswordError2}
               </div>
+            ) : isRegisterError ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isRegisterError}
+              </div>
             ) : (
               <div style={{ height: "14px" }}></div>
             )}
-          </space>
+          </div>
           <div className={Styles.entry_modal_bottom}>
             <Link>
               <button
                 className={Styles.button}
-                disabled={!formValid}
+                disabled={!formValid || registerUserResult.isLoading}
                 type="primary"
                 onClick={registrationHandler}
               >

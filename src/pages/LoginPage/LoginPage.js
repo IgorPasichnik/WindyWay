@@ -2,42 +2,50 @@ import Styles from "./loginPage.module.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLoginMutation } from "../../app/services/auth";
+import { isErrorWithMessage } from "../../utils/is-error-with-message";
 
 export const LoginPage = () => {
-  const [user, setUser] = useState("");
-  const [userDirty, setUserDirty] = useState(false);
-  const [isUserError, setIsUserError] = useState("Поле не может быть пустым");
+  const [name, setName] = useState("");
+  const [nameDirty, setNameDirty] = useState(false);
+  const [isNameError, setIsNameError] = useState("Поле не может быть пустым");
   const [password, setPassword] = useState("");
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(
     "Поле не может быть пустым"
   );
+  const [loginUser, loginUserResult] = useLoginMutation();
+  const [isLoginError, setIsLoginError] = useState("");
   const [formValid, setFormValid] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isUserError || isPasswordError) {
+    if (isNameError || isPasswordError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [isUserError, isPasswordError]);
+  }, [isNameError, isPasswordError]);
 
-  const userHandler = (e) => {
-    setUser(e.target.value);
+  const nameHandler = (e) => {
+    setName(e.target.value);
+    setIsLoginError(false);
+
     const re = /^\w+$/;
     if (!re.test(String(e.target.value))) {
-      setIsUserError("Некорректное имя");
+      setIsNameError("Некорректное имя");
       if (!e.target.value) {
-        setIsUserError("Поле не может быть пустым");
+        setIsNameError("Поле не может быть пустым");
       }
     } else {
-      setIsUserError("");
+      setIsNameError("");
     }
   };
 
   const passwordHandler = (e) => {
     setPassword(e.target.value);
+    setIsLoginError(false);
+
     const re = /^[a-z]+$/;
     if (!re.test(String(e.target.value))) {
       setIsPasswordError("Некоррректный пароль");
@@ -51,8 +59,8 @@ export const LoginPage = () => {
 
   const blurHandler = (e) => {
     switch (e.target.name) {
-      case "user":
-        setUserDirty(true);
+      case "name":
+        setNameDirty(true);
         break;
       case "password":
         setPasswordDirty(true);
@@ -63,25 +71,21 @@ export const LoginPage = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     const payload = {
-      user: user,
+      name: name,
       password: password,
     };
     try {
-      const response = await fetch("http://localhost:9500/login", {
-        credentials: "include",
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      console.log(JSON.stringify(data));
-      navigate("/location");
+      await loginUser(payload).unwrap();
+
+      navigate("/home");
     } catch (err) {
-      console.log(err);
-      alert("Такой пользователь не зарегистрирован");
+      const maybeError = isErrorWithMessage(err);
+
+      if (maybeError) {
+        setIsLoginError(err.data.message);
+      } else {
+        setIsLoginError("Неизвестная ошибка");
+      }
     }
   };
 
@@ -97,19 +101,19 @@ export const LoginPage = () => {
           <div>
             <h1>Авторизация</h1>
           </div>
-          <space className={Styles.entry_form}>
+          <div className={Styles.entry_form}>
             <input
               className={`${Styles.entry_input} ${
-                isUserError && userDirty ? Styles.error : ""
+                isNameError && nameDirty ? Styles.error : ""
               }`}
               placeholder="name"
-              name="user"
+              name="name"
               type="text"
-              onChange={(e) => userHandler(e)}
-              value={user}
+              onChange={(e) => nameHandler(e)}
+              value={name}
               onBlur={(e) => blurHandler(e)}
             />
-            {userDirty && isUserError ? (
+            {nameDirty && isNameError ? (
               <div
                 style={{
                   marginLeft: "4px",
@@ -119,7 +123,7 @@ export const LoginPage = () => {
                   letterSpacing: "-1px",
                 }}
               >
-                {isUserError}
+                {isNameError}
               </div>
             ) : (
               <div style={{ height: "14px" }}></div>
@@ -147,6 +151,18 @@ export const LoginPage = () => {
               >
                 {isPasswordError}
               </div>
+            ) : isLoginError ? (
+              <div
+                style={{
+                  marginLeft: "4px",
+                  height: "14px",
+                  color: "red",
+                  fontSize: "12px",
+                  letterSpacing: "-1px",
+                }}
+              >
+                {isLoginError}
+              </div>
             ) : (
               <div style={{ height: "14px" }}></div>
             )}
@@ -154,7 +170,7 @@ export const LoginPage = () => {
               <Link to="/home">
                 <button
                   className={Styles.button}
-                  disabled={!formValid}
+                  disabled={!formValid || loginUserResult.isLoading}
                   type="primary"
                   onClick={loginHandler}
                 >
@@ -167,7 +183,7 @@ export const LoginPage = () => {
                 </button>
               </Link>
             </div>
-          </space>
+          </div>
           <Link to="/">
             <button className={Styles.button_back}>Назад</button>
           </Link>

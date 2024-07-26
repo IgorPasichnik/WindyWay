@@ -116,6 +116,21 @@
   }
 }
 
+@media (max-width: 768px) {
+  .content {
+    background-attachment: local;
+  }
+
+  .content_box {
+    padding-top: 90px;
+    height: 900px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: start;
+    gap: 70px;
+  }
+}
+
 @media (max-width: 480px) {
   .content_box {
     width: 100%;

@@ -1,17 +1,17 @@
 import Styles from "./header.module.css";
 import img_logo from "../../images/logo.png";
-import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../features/auth/authSlice";
 
 export const Header = () => {
-  const location = useLocation();
-  const [isLocationPage, setIsLocationPage] = useState(
-    location.pathname === "/location"
-  );
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    setIsLocationPage(location.pathname === "/location");
-  }, [location.pathname]);
+  const onLogoutClick = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+  };
 
   return (
     <header className={Styles.header}>
@@ -20,11 +20,13 @@ export const Header = () => {
           <img className={Styles.header_img} src={img_logo} />
           <h1 className={Styles.header_title}>WindyWay</h1>
         </button>
-        {isLocationPage ? (
+        {user ? (
           <nav className={Styles.header_nav}>
-            <button className={Styles.header_button}>
-              <Link to="/">Выход</Link>
-            </button>
+            <Link to="/">
+              <button className={Styles.header_button} onClick={onLogoutClick}>
+                Выйти
+              </button>
+            </Link>
           </nav>
         ) : (
           <nav className={Styles.header_nav}>

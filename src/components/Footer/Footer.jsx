@@ -1,24 +1,4 @@
 import Styles from "./footer.module.css";
-import { Button, Popover } from "antd";
-
-const service = (
-  <div>
-    <p>
-      Данный сервис предоставляет точную информацию о погодных условиях по всему
-      <br />
-      Земному шару в данный момент времени. Вы можете получить данные о<br />
-      температуре воздуха, скорости ветра, осадках, влажности и давлении. Вся
-      <br />
-      информация взята из открытого источника - WeatherApi.
-    </p>
-  </div>
-);
-
-const contacts = (
-  <div>
-    <p>*Контакты*</p>
-  </div>
-);
 
 export const Footer = () => {
   return (

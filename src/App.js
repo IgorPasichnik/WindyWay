@@ -5,7 +5,7 @@ import { LoginPage } from "./pages/LoginPage/LoginPage.js";
 import { HomePage } from "./pages/HomePage/HomePage.js";
 import { RegistrationPage } from "./pages/RegistrationPage/RegistrationPage.js";
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage.js";
-import { store } from "./store";
+import { store } from "./app/store.js";
 
 function App() {
   return (

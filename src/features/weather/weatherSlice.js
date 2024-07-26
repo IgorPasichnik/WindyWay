@@ -27,11 +27,9 @@ const weatherSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchWeathers.pending, (state, action) => {});
     builder.addCase(fetchWeathers.fulfilled, (state, action) => {
       state.list = action.payload;
     });
-    builder.addCase(fetchWeathers.rejected, (state, action) => {});
   },
 });
 
