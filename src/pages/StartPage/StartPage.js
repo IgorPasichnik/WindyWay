@@ -5,7 +5,7 @@ import img_icon2 from "../../images/weatherIcons/sunny_weather_icon_152004.png";
 import img_search from "../../images/search.svg";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fetchWeathers } from "../../features/weather/weatherSlice";
+import { fetchWeathers } from "../../app/services/api";
 import { useDispatch } from "react-redux";
 import { Layout } from "../../components/Layout/Layout";
 import { Card } from "../../components/Card/Card";
@@ -58,7 +58,11 @@ export const StartPage = () => {
                   onChange={(e) => setLocation(e.target.value)}
                 />
                 <button className={Styles.btn_search} onClick={handlerLocation}>
-                  <img className={Styles.image_search} src={img_search} />
+                  <img
+                    className={Styles.image_search}
+                    src={img_search}
+                    alt="search"
+                  />
                 </button>
               </form>
             </motion.div>
@@ -125,13 +129,13 @@ export const StartPage = () => {
           </div>
           <div className={Styles.content_second_cards}>
             <motion.div
+              key="london"
               initial={{ x: 50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
               viewport={{ amount: 0.2, once: true }}
             >
               <Card
-                name="Лондон"
                 iconPath={img_icon1}
                 temp_c="4"
                 feelslike_c="2"

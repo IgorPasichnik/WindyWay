@@ -2,7 +2,7 @@ import Styles from "./homePage.module.css";
 import img_search from "../../images/search.svg";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fetchWeathers } from "../../features/weather/weatherSlice";
+import { fetchWeathers } from "../../app/services/api";
 import { useDispatch, useSelector } from "react-redux";
 import img_sun from "../../images/weatherIcons/sun_weather_icon_152003.png";
 import img_sunny from "../../images/weatherIcons/sunny_weather_icon_152004.png";
@@ -28,7 +28,7 @@ export const HomePage = () => {
     if (!user) {
       navigate("/");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   const handleLocationSubmit = (e) => {
     setWeather(null);
@@ -141,7 +141,11 @@ export const HomePage = () => {
                   className={Styles.btn_search}
                   onClick={handleLocationSubmit}
                 >
-                  <img className={Styles.image_search} src={img_search} />
+                  <img
+                    className={Styles.image_search}
+                    src={img_search}
+                    alt="search"
+                  />
                 </button>
               </form>
             </motion.div>

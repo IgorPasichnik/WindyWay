@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_USER,
@@ -20,3 +21,16 @@ export const api = createApi({
   refetchOnMountOrArgChange: true,
   endpoints: () => ({}),
 });
+
+export const fetchWeathers = createAsyncThunk(
+  "weather/fetchWeather",
+  async (location) => {
+    const keyWeather = process.env.REACT_APP_KEY_WEATER;
+    const response = await fetch(
+      `https://api.weatherapi.com/v1/current.json?key=${keyWeather}&q=${location}`
+    );
+    const weathers = await response.json();
+
+    return weathers;
+  }
+);

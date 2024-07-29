@@ -84,7 +84,7 @@ export const RegistrationPage = () => {
   const emailHandler = (e) => {
     setEmail(e.target.value);
     const re =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]   \.,;:\s@\"]{2,})$/i;
+      /^(([^<>()[\]\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
     if (!re.test(String(e.target.value).toLowerCase())) {
       setIsEmailError("Некорректный email");
       if (!e.target.value) {
@@ -108,6 +108,8 @@ export const RegistrationPage = () => {
         break;
       case "email":
         setEmailDirty(true);
+        break;
+      default:
         break;
     }
   };

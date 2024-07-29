@@ -65,6 +65,8 @@ export const LoginPage = () => {
       case "password":
         setPasswordDirty(true);
         break;
+      default:
+        break;
     }
   };
 

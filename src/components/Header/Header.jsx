@@ -17,7 +17,7 @@ export const Header = () => {
     <header className={Styles.header}>
       <div className={Styles.header_box}>
         <button className={Styles.header_logo}>
-          <img className={Styles.header_img} src={img_logo} />
+          <img className={Styles.header_img} src={img_logo} alt="logo" />
           <h1 className={Styles.header_title}>WindyWay</h1>
         </button>
         {user ? (
