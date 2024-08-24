@@ -29,6 +29,7 @@ export const StartPage = () => {
           console.error("Error fetching weather data:", error);
         });
     } else {
+      e.preventDefault();
       console.error("Location is not defined");
     }
   };
@@ -136,6 +137,7 @@ export const StartPage = () => {
               viewport={{ amount: 0.2, once: true }}
             >
               <Card
+                name="Лондон"
                 iconPath={img_icon1}
                 temp_c="4"
                 feelslike_c="2"
@@ -146,6 +148,7 @@ export const StartPage = () => {
               />
             </motion.div>
             <motion.div
+              key="moscow"
               initial={{ x: 50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}

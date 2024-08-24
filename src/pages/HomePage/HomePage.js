@@ -32,14 +32,20 @@ export const HomePage = () => {
 
   const handleLocationSubmit = (e) => {
     setWeather(null);
-    e.preventDefault();
-    dispatch(fetchWeathers(location))
-      .then((result) => {
-        setWeather(result.payload);
-      })
-      .catch((error) => {
-        console.error("Ошибка:", error);
-      });
+
+    if (location) {
+      e.preventDefault();
+      dispatch(fetchWeathers(location))
+        .then((result) => {
+          setWeather(result.payload);
+        })
+        .catch((error) => {
+          console.error("Ошибка:", error);
+        });
+    } else {
+      e.preventDefault();
+      console.error("Location is not defined");
+    }
   };
 
   const getIconPath = (weather) => {
