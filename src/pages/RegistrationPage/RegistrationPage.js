@@ -4,24 +4,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRegisterMutation } from "../../app/services/auth";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
+import Button from "../../components/Button/Button";
 
 export const RegistrationPage = () => {
   const [name, setName] = useState("");
   const [nameDirty, setNameDirty] = useState(false);
-  const [isNameError, setIsNameError] = useState("Поле не может быть пустым");
+  const [isNameError, setIsNameError] = useState("The field cannot be empty");
   const [password, setPassword] = useState("");
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(
-    "Поле не может быть пустым"
+    "The field cannot be empty"
   );
   const [password2, setPassword2] = useState("");
   const [passwordDirty2, setPasswordDirty2] = useState(false);
   const [isPasswordError2, setIsPasswordError2] = useState(
-    "Поле не может быть пустым"
+    "The field cannot be empty"
   );
   const [email, setEmail] = useState("");
   const [emailDirty, setEmailDirty] = useState(false);
-  const [isEmailError, setIsEmailError] = useState("Поле не может быть пустым");
+  const [isEmailError, setIsEmailError] = useState("The field cannot be empty");
   const [registerUser, registerUserResult] = useRegisterMutation();
   const [isRegisterError, setIsRegisterError] = useState("");
   const [formValid, setFormValid] = useState(false);
@@ -39,9 +40,9 @@ export const RegistrationPage = () => {
     setName(e.target.value);
     const re = /^\w+$/;
     if (!re.test(String(e.target.value))) {
-      setIsNameError("Некорректное имя");
+      setIsNameError("Incorrect name");
       if (!e.target.value) {
-        setIsNameError("Поле не может быть пустым");
+        setIsNameError("The field cannot be empty");
       }
     } else {
       setIsNameError("");
@@ -52,16 +53,16 @@ export const RegistrationPage = () => {
     setPassword(e.target.value);
     const re = /^[a-z]+$/;
     if (!re.test(String(e.target.value))) {
-      setIsPasswordError("Некорректный пароль");
+      setIsPasswordError("Incorrect password");
       if (!e.target.value) {
-        setIsPasswordError("Поле не может быть пустым");
+        setIsPasswordError("The field cannot be empty");
       }
     } else {
       setIsPasswordError("");
       if (e.target.value !== password2) {
-        setIsPasswordError2("Пароль не совпадает");
+        setIsPasswordError2("The password does not match");
         if (!password2) {
-          setIsPasswordError2("Поле не может быть пустым");
+          setIsPasswordError2("The field cannot be empty");
         }
       } else {
         setIsPasswordError2("");
@@ -72,9 +73,9 @@ export const RegistrationPage = () => {
   const passwordHandler2 = (e) => {
     setPassword2(e.target.value);
     if (e.target.value !== password) {
-      setIsPasswordError2("Пароль не совпадает");
+      setIsPasswordError2("The password does not match");
       if (!e.target.value) {
-        setIsPasswordError2("Поле не может быть пустым");
+        setIsPasswordError2("The field cannot be empty");
       }
     } else {
       setIsPasswordError2("");
@@ -86,9 +87,9 @@ export const RegistrationPage = () => {
     const re =
       /^(([^<>()[\]\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
     if (!re.test(String(e.target.value).toLowerCase())) {
-      setIsEmailError("Некорректный email");
+      setIsEmailError("Incorrect email");
       if (!e.target.value) {
-        setIsEmailError("Поле не может быть пустым");
+        setIsEmailError("The field cannot be empty");
       }
     } else {
       setIsEmailError("");
@@ -131,7 +132,7 @@ export const RegistrationPage = () => {
       if (maybeError) {
         setIsRegisterError(err.data.message);
       } else {
-        setIsRegisterError("Неизвестная ошибка");
+        setIsRegisterError("Unknown error");
       }
     }
   };
@@ -146,7 +147,7 @@ export const RegistrationPage = () => {
           className={Styles.entry_modal}
         >
           <div>
-            <h1>Регистрация</h1>
+            <h1>Registration</h1>
           </div>
           <div>
             <input
@@ -233,7 +234,7 @@ export const RegistrationPage = () => {
               className={`${Styles.entry_input} ${
                 isPasswordError2 && passwordDirty2 ? Styles.error : ""
               }`}
-              placeholder="password"
+              placeholder="repeat password"
               name="password2"
               type="text"
               onChange={(e) => passwordHandler2(e)}
@@ -270,17 +271,27 @@ export const RegistrationPage = () => {
           </div>
           <div className={Styles.entry_modal_bottom}>
             <Link>
-              <button
-                className={Styles.button}
+              <Button
+                background="blue"
+                border="blue"
+                backgroundHover="white"
+                colorHover="blue"
+                borderHover="blue"
                 disabled={!formValid || registerUserResult.isLoading}
-                type="primary"
                 onClick={registrationHandler}
               >
-                Регистрация
-              </button>
+                Entry
+              </Button>
             </Link>
             <Link to="/">
-              <button className={Styles.button_back}>Назад</button>
+              <Button
+                color="black"
+                border="black"
+                colorHover="blue"
+                borderHover="blue"
+              >
+                Back
+              </Button>
             </Link>
           </div>
         </motion.form>

@@ -1,5 +1,4 @@
 import Styles from "./startPage.module.css";
-// import img_real_weather from "../../images/weatherIcons/rainbow_weather_icon_152000.png";
 import img_icon1 from "../../images/weatherIcons/rain_weather_icon_151998.png";
 import img_icon2 from "../../images/weatherIcons/sunny_weather_icon_152004.png";
 import img_search from "../../images/search.svg";
@@ -47,12 +46,12 @@ export const StartPage = () => {
               className={Styles.content_search}
             >
               <h1 className={Styles.content_title}>
-                Прогноз погоды для тысячи городов по всему миру
+                Weather forecast for thousands of cities around the world
               </h1>
               <form className={Styles.form_search}>
                 <input
                   className={Styles.input_search}
-                  placeholder="Город"
+                  placeholder="City"
                   type="text"
                   name="location"
                   value={location}
@@ -67,7 +66,7 @@ export const StartPage = () => {
                 </button>
               </form>
             </motion.div>
-            {weather && (
+            {weather ? (
               <motion.div
                 initial={{ x: 50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
@@ -80,15 +79,17 @@ export const StartPage = () => {
                 </div>
                 <div className={Styles.content_modal_bottom}>
                   <div className={Styles.content_modal_block}>
-                    <p>Температура</p>
+                    <p>Temperature</p>
                     <p>{weather.current.temp_c} &deg;C</p>
                   </div>
                   <div className={Styles.content_modal_block}>
-                    <p>Ощущается как</p>
+                    <p>Feels like</p>
                     <p>{weather.current.feelslike_c} &deg;C</p>
                   </div>
                 </div>
               </motion.div>
+            ) : (
+              <div className={Styles.none_content}></div>
             )}
           </div>
         </section>
@@ -101,8 +102,8 @@ export const StartPage = () => {
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
             >
-              Ваш источник №1 любых прогнозов погоды и обновлений. Будьте в
-              курсе любых изменений погоды с WindyWay.
+              Your #1 source for all weather forecasts and updates. Stay up to
+              date with any weather changes with WindyWay.
             </motion.h1>
             <motion.p
               className={Styles.content_second_info_text}
@@ -111,21 +112,19 @@ export const StartPage = () => {
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
             >
-              Избегайте погодных сюрпризов <br />
-              <br /> WindyWay предоставляет инструмент планирования поездок с
-              точной информацией о прогнозе погоды для оптимизации планов
-              поездок. Успешное путешествие требует тщательного планирования,
-              чтобы путешественники могли насладиться веселым и безопасным
-              путешествием.
+              Avoid weather surprises. <br />
+              <br /> WindyWay provides a travel planning tool with accurate
+              weather forecast information to optimize travel plans. A
+              successful trip requires careful planning so that travelers can
+              enjoy a fun and safe journey.
               <br />
               <br />
-              Планировщик поездки с погодой — важный инструмент, помогающий в
-              этом планировании. Этот инструмент предоставляет актуальную
-              информацию о погоде для любого заданного маршрута. Это позволяет
-              путешественникам принимать обоснованные решения о своих планах
-              поездок в любой момент времени. <br />
-              <br /> Больше информации о погоде на сегодня, Вы сможете получить
-              авторизовавшись на нашем сайте.
+              A trip planner with weather is an important tool to help with this
+              planning. This tool provides up-to-date weather information for
+              any given route. This allows travelers to make informed decisions
+              about their travel plans at any given time. <br />
+              <br /> You can get more information about today's weather by
+              logging in to our website.
             </motion.p>
           </div>
           <div className={Styles.content_second_cards}>
@@ -137,7 +136,7 @@ export const StartPage = () => {
               viewport={{ amount: 0.2, once: true }}
             >
               <Card
-                name="Лондон"
+                name="London"
                 iconPath={img_icon1}
                 temp_c="4"
                 feelslike_c="2"
@@ -155,7 +154,7 @@ export const StartPage = () => {
               viewport={{ amount: 0.2, once: true }}
             >
               <Card
-                name="Москва"
+                name="Moscow"
                 iconPath={img_icon2}
                 temp_c="11"
                 feelslike_c="7"

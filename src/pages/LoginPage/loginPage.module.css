@@ -30,12 +30,31 @@
   justify-content: center;
 }
 
+.input_show {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .entry_input {
+  font-size: 15px;
   width: 245px;
   margin: 5px;
-  padding: 10px;
+  padding: 9px 15px;
   border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 20px;
+}
+
+.entry_show {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  position: absolute;
+  top: 10px;
+  left: 205px;
+  z-index: 10;
 }
 
 .entry_input:focus {
@@ -45,50 +64,14 @@
 }
 
 .entry_modal_bottom {
-  width: 225px;
-  margin-top: 20px;
+  margin: 0;
+  width: 245px;
+  margin-top: 8px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
 .error {
   border: 1px solid red;
-}
-
-.button {
-  padding: 10px 15px;
-  font-size: 13px;
-  color: white;
-  background-color: #2a7fb8;
-  border: 1px solid #2a7fb8;
-  border-radius: 6px;
-}
-
-.button:hover {
-  cursor: pointer;
-  background-color: #5db0e7;
-}
-
-.button:disabled {
-  cursor: not-allowed;
-  color: gray;
-  background-color: rgb(220, 220, 220);
-  border: 1px solid gray;
-  opacity: 0.5;
-}
-
-.button_back {
-  padding: 10px 15px;
-  font-size: 13px;
-  color: black;
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 6px;
-}
-
-.button_back:hover {
-  cursor: pointer;
-  color: #2a7fb8;
-  border: 1px solid #2a7fb8;
 }

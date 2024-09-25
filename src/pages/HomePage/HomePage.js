@@ -132,12 +132,12 @@ export const HomePage = () => {
               className={Styles.content_search}
             >
               <h1 className={Styles.content_title}>
-                Укажите название Вашего города
+                Please indicate the name of your city
               </h1>
               <form className={Styles.form_search}>
                 <input
                   className={Styles.input_search}
-                  placeholder="Город"
+                  placeholder="City"
                   type="text"
                   name="location"
                   value={location}
@@ -155,7 +155,7 @@ export const HomePage = () => {
                 </button>
               </form>
             </motion.div>
-            {weather && (
+            {weather ? (
               <motion.div
                 initial={{ x: 100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
@@ -173,6 +173,8 @@ export const HomePage = () => {
                   pressure_mb={weather.current.pressure_mb}
                 />
               </motion.div>
+            ) : (
+              <div className={Styles.none_content}></div>
             )}
           </div>
         </section>

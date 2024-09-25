@@ -31,11 +31,12 @@
 }
 
 .entry_input {
+  font-size: 15px;
   width: 245px;
   margin: 5px;
-  padding: 10px;
+  padding: 9px 15px;
   border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .entry_input:focus {

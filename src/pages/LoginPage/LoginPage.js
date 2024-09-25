@@ -1,22 +1,26 @@
 import Styles from "./loginPage.module.css";
+import showIcon from "../../images/show-30.png";
+import hideIcon from "../../images/hide-30.png";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLoginMutation } from "../../app/services/auth";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
+import Button from "../../components/Button/Button";
 
 export const LoginPage = () => {
   const [name, setName] = useState("");
   const [nameDirty, setNameDirty] = useState(false);
-  const [isNameError, setIsNameError] = useState("Поле не может быть пустым");
+  const [isNameError, setIsNameError] = useState("The field cannot be empty");
   const [password, setPassword] = useState("");
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(
-    "Поле не может быть пустым"
+    "The field cannot be empty"
   );
   const [loginUser, loginUserResult] = useLoginMutation();
   const [isLoginError, setIsLoginError] = useState("");
   const [formValid, setFormValid] = useState(false);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,9 +37,9 @@ export const LoginPage = () => {
 
     const re = /^\w+$/;
     if (!re.test(String(e.target.value))) {
-      setIsNameError("Некорректное имя");
+      setIsNameError("Incorrect name");
       if (!e.target.value) {
-        setIsNameError("Поле не может быть пустым");
+        setIsNameError("The field cannot be empty");
       }
     } else {
       setIsNameError("");
@@ -48,9 +52,9 @@ export const LoginPage = () => {
 
     const re = /^[a-z]+$/;
     if (!re.test(String(e.target.value))) {
-      setIsPasswordError("Некоррректный пароль");
+      setIsPasswordError("Incorrect password");
       if (!e.target.value) {
-        setIsPasswordError("Поле не может быть пустым");
+        setIsPasswordError("The field cannot be empty");
       }
     } else {
       setIsPasswordError("");
@@ -86,23 +90,28 @@ export const LoginPage = () => {
       if (maybeError) {
         setIsLoginError(err.data.message);
       } else {
-        setIsLoginError("Неизвестная ошибка");
+        setIsLoginError("Unknown error");
       }
     }
   };
 
+  const showHandler = (e) => {
+    e.preventDefault();
+    setShow(!show);
+  };
+
   return (
-    <main className={Styles.entry}>
-      <AnimatePresence>
+    <AnimatePresence>
+      <main className={Styles.entry}>
         <motion.form
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           className={Styles.entry_modal}
         >
-          <div>
-            <h1>Авторизация</h1>
-          </div>
+          <header>
+            <h1>Authorization</h1>
+          </header>
           <div className={Styles.entry_form}>
             <input
               className={`${Styles.entry_input} ${
@@ -118,7 +127,7 @@ export const LoginPage = () => {
             {nameDirty && isNameError ? (
               <div
                 style={{
-                  marginLeft: "4px",
+                  marginLeft: "6px",
                   height: "14px",
                   color: "red",
                   fontSize: "12px",
@@ -130,21 +139,30 @@ export const LoginPage = () => {
             ) : (
               <div style={{ height: "14px" }}></div>
             )}
-            <input
-              className={`${Styles.entry_input} ${
-                isPasswordError && passwordDirty ? Styles.error : ""
-              }`}
-              placeholder="password"
-              name="password"
-              type="text"
-              onChange={(e) => passwordHandler(e)}
-              value={password}
-              onBlur={(e) => blurHandler(e)}
-            />
+            <div className={Styles.input_show}>
+              <input
+                className={`${Styles.entry_input} ${
+                  isPasswordError && passwordDirty ? Styles.error : ""
+                }`}
+                placeholder="password"
+                name="password"
+                type={show ? "text" : "password"}
+                onChange={(e) => passwordHandler(e)}
+                value={password}
+                onBlur={(e) => blurHandler(e)}
+              />
+              <button onClick={showHandler} className={Styles.entry_show}>
+                {show ? (
+                  <img width="25px" height="25px" src={hideIcon} />
+                ) : (
+                  <img width="25px" height="25px" src={showIcon} />
+                )}
+              </button>
+            </div>
             {passwordDirty && isPasswordError ? (
               <div
                 style={{
-                  marginLeft: "4px",
+                  marginLeft: "6px",
                   height: "14px",
                   color: "red",
                   fontSize: "12px",
@@ -170,27 +188,43 @@ export const LoginPage = () => {
             )}
             <div className={Styles.entry_modal_bottom}>
               <Link to="/home">
-                <button
-                  className={Styles.button}
+                <Button
+                  background="blue"
+                  border="blue"
+                  backgroundHover="white"
+                  colorHover="blue"
+                  borderHover="blue"
                   disabled={!formValid || loginUserResult.isLoading}
-                  type="primary"
                   onClick={loginHandler}
                 >
-                  Вход
-                </button>
+                  Entry
+                </Button>
               </Link>
               <Link to="/registration">
-                <button className={Styles.button} type="primary">
-                  Регистрация
-                </button>
+                <Button
+                  background="blue"
+                  border="blue"
+                  backgroundHover="white"
+                  colorHover="blue"
+                  borderHover="blue"
+                >
+                  Sign up
+                </Button>
               </Link>
             </div>
           </div>
           <Link to="/">
-            <button className={Styles.button_back}>Назад</button>
+            <Button
+              color="black"
+              border="black"
+              colorHover="blue"
+              borderHover="blue"
+            >
+              Back
+            </Button>
           </Link>
         </motion.form>
-      </AnimatePresence>
-    </main>
+      </main>
+    </AnimatePresence>
   );
 };

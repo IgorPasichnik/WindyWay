@@ -1,16 +1,19 @@
 .content {
-  max-width: 100%;
+  width: 100%;
+  height: calc(100vh - 190px);
+  font-family: "Montserrat", sans-serif;
   background-image: url("../../images/background_sky.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  z-index: 1;
 }
 
 .content_box {
+  height: calc(100vh - 190px);
   padding: 20px;
   width: 100%;
   max-width: 1450px;
-  height: 900px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,6 +60,10 @@
   align-items: center;
 }
 
+.none_content {
+  height: 600px;
+}
+
 @media (max-width: 1500px) {
   .content_box {
     width: 1250px;
@@ -87,12 +94,10 @@
 
 @media (max-width: 1000px) {
   .content_box {
-    padding-top: 120px;
-    height: 1000px;
     width: 100%;
     flex-direction: column;
     justify-content: start;
-    gap: 50px;
+    gap: 20px;
   }
 
   .content_search {
@@ -114,6 +119,10 @@
   .btn_search {
     margin: 0;
   }
+
+  .none_content {
+    height: 550px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -122,12 +131,34 @@
   }
 
   .content_box {
-    padding-top: 90px;
-    height: 900px;
     width: 100%;
     flex-direction: column;
-    justify-content: start;
-    gap: 70px;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .content_search {
+    font-size: 20px;
+  }
+
+  .input_search {
+    font-size: 22px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    outline: none;
+  }
+
+  .none_content {
+    height: 500px;
+  }
+
+  .form_search {
+    border: 2px solid black;
+  }
+
+  .image_search {
+    width: 30px;
   }
 }
 
