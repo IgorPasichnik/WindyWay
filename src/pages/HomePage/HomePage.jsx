@@ -1,9 +1,4 @@
-import Styles from "./homePage.module.css";
 import img_search from "../../images/search.svg";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { fetchWeathers } from "../../app/services/api";
-import { useDispatch, useSelector } from "react-redux";
 import img_sun from "../../images/weatherIcons/sun_weather_icon_152003.png";
 import img_sunny from "../../images/weatherIcons/sunny_weather_icon_152004.png";
 import img_cloud from "../../images/weatherIcons/cloud_weather_icon_151996.png";
@@ -12,10 +7,15 @@ import img_rain from "../../images/weatherIcons/rain_weather_icon_151998.png";
 import img_show from "../../images/weatherIcons/snow_weather_icon_152001.png";
 import img_lightning from "../../images/weatherIcons/lightning_weather_icon_151999.png";
 import img_rainbow from "../../images/weatherIcons/rainbow_weather_icon_152000.png";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { fetchWeathers } from "../../app/services/api";
+import { useDispatch, useSelector } from "react-redux";
 import { Layout } from "../../components/Layout/Layout";
 import { Card } from "../../components/Card/Card";
 import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../features/auth/authSlice";
+import { Section } from "./homePageStyles";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -122,36 +122,27 @@ export const HomePage = () => {
   return (
     <Layout>
       <AnimatePresence>
-        <section className={Styles.content}>
-          <div className={Styles.content_box}>
+        <Section>
+          <div className="box">
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
-              className={Styles.content_search}
+              className="search"
             >
-              <h1 className={Styles.content_title}>
-                Please indicate the name of your city
-              </h1>
-              <form className={Styles.form_search}>
+              <h1 className="title">Please indicate the name of your city</h1>
+              <form className="search_form">
                 <input
-                  className={Styles.input_search}
+                  className="search_input"
                   placeholder="City"
                   type="text"
                   name="location"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                 ></input>
-                <button
-                  className={Styles.btn_search}
-                  onClick={handleLocationSubmit}
-                >
-                  <img
-                    className={Styles.image_search}
-                    src={img_search}
-                    alt="search"
-                  />
+                <button className="search_btn" onClick={handleLocationSubmit}>
+                  <img className="search_img" src={img_search} alt="search" />
                 </button>
               </form>
             </motion.div>
@@ -174,10 +165,10 @@ export const HomePage = () => {
                 />
               </motion.div>
             ) : (
-              <div className={Styles.none_content}></div>
+              <div className="none_content"></div>
             )}
           </div>
-        </section>
+        </Section>
       </AnimatePresence>
     </Layout>
   );

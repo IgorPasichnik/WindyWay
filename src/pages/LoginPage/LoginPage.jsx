@@ -1,4 +1,3 @@
-import Styles from "./loginPage.module.css";
 import showIcon from "../../images/show-30.png";
 import hideIcon from "../../images/hide-30.png";
 import { useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLoginMutation } from "../../app/services/auth";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
 import Button from "../../components/Button/Button";
+import { Main } from "./loginPageStyles";
 
 export const LoginPage = () => {
   const [name, setName] = useState("");
@@ -102,21 +102,18 @@ export const LoginPage = () => {
 
   return (
     <AnimatePresence>
-      <main className={Styles.entry}>
+      <Main>
         <motion.form
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className={Styles.entry_modal}
         >
           <header>
             <h1>Authorization</h1>
           </header>
-          <div className={Styles.entry_form}>
+          <div className="container">
             <input
-              className={`${Styles.entry_input} ${
-                isNameError && nameDirty ? Styles.error : ""
-              }`}
+              className={` ${isNameError && nameDirty ? "input_error" : ""}`}
               placeholder="name"
               name="name"
               type="text"
@@ -139,10 +136,10 @@ export const LoginPage = () => {
             ) : (
               <div style={{ height: "14px" }}></div>
             )}
-            <div className={Styles.input_show}>
+            <div className="input_show">
               <input
-                className={`${Styles.entry_input} ${
-                  isPasswordError && passwordDirty ? Styles.error : ""
+                className={`${
+                  isPasswordError && passwordDirty ? "input_error" : ""
                 }`}
                 placeholder="password"
                 name="password"
@@ -151,11 +148,21 @@ export const LoginPage = () => {
                 value={password}
                 onBlur={(e) => blurHandler(e)}
               />
-              <button onClick={showHandler} className={Styles.entry_show}>
+              <button onClick={showHandler} className="btn_show">
                 {show ? (
-                  <img width="25px" height="25px" src={hideIcon} />
+                  <img
+                    width="25px"
+                    height="25px"
+                    src={hideIcon}
+                    alt="hide icon"
+                  />
                 ) : (
-                  <img width="25px" height="25px" src={showIcon} />
+                  <img
+                    width="25px"
+                    height="25px"
+                    src={showIcon}
+                    alt="show icon"
+                  />
                 )}
               </button>
             </div>
@@ -186,7 +193,7 @@ export const LoginPage = () => {
             ) : (
               <div style={{ height: "14px" }}></div>
             )}
-            <div className={Styles.entry_modal_bottom}>
+            <div className="buttons">
               <Link to="/home">
                 <Button
                   background="blue"
@@ -224,7 +231,7 @@ export const LoginPage = () => {
             </Button>
           </Link>
         </motion.form>
-      </main>
+      </Main>
     </AnimatePresence>
   );
 };

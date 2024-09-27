@@ -1,10 +1,10 @@
-import Styles from "./registrationPage.module.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRegisterMutation } from "../../app/services/auth";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
 import Button from "../../components/Button/Button";
+import { Main } from "../LoginPage/loginPageStyles";
 
 export const RegistrationPage = () => {
   const [name, setName] = useState("");
@@ -138,22 +138,19 @@ export const RegistrationPage = () => {
   };
 
   return (
-    <div className={Styles.entry}>
-      <AnimatePresence>
+    <AnimatePresence>
+      <Main>
         <motion.form
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className={Styles.entry_modal}
         >
           <div>
             <h1>Registration</h1>
           </div>
-          <div>
+          <div className="container">
             <input
-              className={`${Styles.entry_input} ${
-                isNameError && nameDirty ? Styles.error : ""
-              }`}
+              className={`${isNameError && nameDirty ? "input_error" : ""}`}
               placeholder="name"
               name="name"
               type="text"
@@ -177,9 +174,7 @@ export const RegistrationPage = () => {
               <div style={{ height: "14px" }}></div>
             )}
             <input
-              className={`${Styles.entry_input} ${
-                isEmailError && emailDirty ? Styles.error : ""
-              }`}
+              className={`${isEmailError && emailDirty ? "input_error" : ""}`}
               placeholder="email"
               name="email"
               type="text"
@@ -204,8 +199,8 @@ export const RegistrationPage = () => {
             )}
             <input
               data-testid="passwordinput"
-              className={`${Styles.entry_input} ${
-                isPasswordError && passwordDirty ? Styles.error : ""
+              className={` ${
+                isPasswordError && passwordDirty ? "input_error" : ""
               }`}
               placeholder="password"
               name="password"
@@ -231,8 +226,8 @@ export const RegistrationPage = () => {
             )}
             <input
               data-testid="passwordinput2"
-              className={`${Styles.entry_input} ${
-                isPasswordError2 && passwordDirty2 ? Styles.error : ""
+              className={` ${
+                isPasswordError2 && passwordDirty2 ? "input_error" : ""
               }`}
               placeholder="repeat password"
               name="password2"
@@ -269,7 +264,7 @@ export const RegistrationPage = () => {
               <div style={{ height: "14px" }}></div>
             )}
           </div>
-          <div className={Styles.entry_modal_bottom}>
+          <div className="buttons">
             <Link>
               <Button
                 background="blue"
@@ -295,7 +290,7 @@ export const RegistrationPage = () => {
             </Link>
           </div>
         </motion.form>
-      </AnimatePresence>
-    </div>
+      </Main>
+    </AnimatePresence>
   );
 };

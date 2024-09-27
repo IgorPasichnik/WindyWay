@@ -2,7 +2,7 @@
   "name": "events-world-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:9500/",
+  "proxy": "http://localhost:8000/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
     "@testing-library/dom": "^9.3.4",

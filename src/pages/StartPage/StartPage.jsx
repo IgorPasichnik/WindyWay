@@ -1,4 +1,3 @@
-import Styles from "./startPage.module.css";
 import img_icon1 from "../../images/weatherIcons/rain_weather_icon_151998.png";
 import img_icon2 from "../../images/weatherIcons/sunny_weather_icon_152004.png";
 import img_search from "../../images/search.svg";
@@ -8,6 +7,8 @@ import { fetchWeathers } from "../../app/services/api";
 import { useDispatch } from "react-redux";
 import { Layout } from "../../components/Layout/Layout";
 import { Card } from "../../components/Card/Card";
+import { SectionFirst } from "./startPageStyles";
+import { SectionSecond } from "./startPageStyles";
 
 export const StartPage = () => {
   const [location, setLocation] = useState("");
@@ -36,33 +37,29 @@ export const StartPage = () => {
   return (
     <Layout>
       <AnimatePresence>
-        <section className={Styles.content}>
-          <div className={Styles.content_box}>
+        <SectionFirst>
+          <div className="box">
             <motion.div
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ amount: 0.2, once: true }}
-              className={Styles.content_search}
+              className="search"
             >
-              <h1 className={Styles.content_title}>
+              <h1 className="title">
                 Weather forecast for thousands of cities around the world
               </h1>
-              <form className={Styles.form_search}>
+              <form className="search_form">
                 <input
-                  className={Styles.input_search}
+                  className="search_input"
                   placeholder="City"
                   type="text"
                   name="location"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                 />
-                <button className={Styles.btn_search} onClick={handlerLocation}>
-                  <img
-                    className={Styles.image_search}
-                    src={img_search}
-                    alt="search"
-                  />
+                <button className="search_btn" onClick={handlerLocation}>
+                  <img className="search_img" src={img_search} alt="search" />
                 </button>
               </form>
             </motion.div>
@@ -72,31 +69,31 @@ export const StartPage = () => {
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ amount: 0.5, once: true }}
-                className={Styles.content_modal}
+                className="modal"
               >
-                <div className={Styles.content_modal_top}>
+                <div className="modal_top">
                   <h1>{weather.location.name}</h1>
                 </div>
-                <div className={Styles.content_modal_bottom}>
-                  <div className={Styles.content_modal_block}>
+                <div className="modal_bottom">
+                  <div className="modal_block">
                     <p>Temperature</p>
                     <p>{weather.current.temp_c} &deg;C</p>
                   </div>
-                  <div className={Styles.content_modal_block}>
+                  <div className="modal_block">
                     <p>Feels like</p>
                     <p>{weather.current.feelslike_c} &deg;C</p>
                   </div>
                 </div>
               </motion.div>
             ) : (
-              <div className={Styles.none_content}></div>
+              <div className="none_content"></div>
             )}
           </div>
-        </section>
-        <section className={Styles.content_second}>
-          <div className={Styles.content_second_info}>
+        </SectionFirst>
+        <SectionSecond>
+          <div className="info">
             <motion.h1
-              className={Styles.content_second_info_title}
+              className="info_title"
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
@@ -106,7 +103,7 @@ export const StartPage = () => {
               date with any weather changes with WindyWay.
             </motion.h1>
             <motion.p
-              className={Styles.content_second_info_text}
+              className="info_text"
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
@@ -127,7 +124,7 @@ export const StartPage = () => {
               logging in to our website.
             </motion.p>
           </div>
-          <div className={Styles.content_second_cards}>
+          <div className="cards">
             <motion.div
               key="london"
               initial={{ x: 50, opacity: 0 }}
@@ -165,7 +162,7 @@ export const StartPage = () => {
               />
             </motion.div>
           </div>
-        </section>
+        </SectionSecond>
       </AnimatePresence>
     </Layout>
   );
